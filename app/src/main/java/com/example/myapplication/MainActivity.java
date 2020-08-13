@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Log.d(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
 
         editText = (EditText) findViewById(R.id.editText);
         editText2 = (EditText) findViewById(R.id.editText2);
@@ -86,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onRestart() {
         super.onRestart();
@@ -99,13 +99,33 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy");
     }
 
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.d(TAG, "onSaveInstanceState");
-    }
+
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d(TAG, "onRestoreInstanceState");
+        String stateSaved = savedInstanceState.getString("saved_state");
+        if (stateSaved == null){
+            Toast.makeText(MainActivity.this,
+                    "onRestoreInstanceState:\n" +
+                                "NO state saved",
+                        Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(MainActivity.this,
+                    "onRestoreInstanceState:\n" +
+                                "state saved = " + stateSaved,
+                        Toast.LENGTH_LONG).show();
+            result.setText(stateSaved);
+
+        }
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String stateToSave = result.getText().toString();
+        outState.putString("saved_state", stateToSave);
+        Toast.makeText(MainActivity.this,
+                "onSaveInstanceState:\n" +
+                "saved_state = " + stateToSave,
+                Toast.LENGTH_LONG).show();
     }
 }
