@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Countable</string>
+    <string name="title">Home task 2</string>
+    <string name="editText">Put the first number\'s value</string>
+    <string name="editText2">Put the second number\'s value</string>
+    <string name="count">Result</string>
+</resources>
